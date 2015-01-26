@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{98D83DBD-2920-4B53-9B71-F213A8975823}"
+	ProjectSection(SolutionItems) = preProject
+		RabbitCache.nuspec = RabbitCache.nuspec
+		Solution.cs = Solution.cs
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitCache", "RabbitCache\RabbitCache.csproj", "{715B2C4D-1412-4131-B7FC-CFE70AEF757D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitCache.Test", "RabbitCache.Test\RabbitCache.Test.csproj", "{207C8E34-1EF6-4C42-B17A-A4A89EB8159D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{43A0FD42-5E2D-4A83-AA77-7E3A0C891052}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{715B2C4D-1412-4131-B7FC-CFE70AEF757D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{715B2C4D-1412-4131-B7FC-CFE70AEF757D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{715B2C4D-1412-4131-B7FC-CFE70AEF757D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{715B2C4D-1412-4131-B7FC-CFE70AEF757D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{715B2C4D-1412-4131-B7FC-CFE70AEF757D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{715B2C4D-1412-4131-B7FC-CFE70AEF757D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{715B2C4D-1412-4131-B7FC-CFE70AEF757D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{715B2C4D-1412-4131-B7FC-CFE70AEF757D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{715B2C4D-1412-4131-B7FC-CFE70AEF757D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{715B2C4D-1412-4131-B7FC-CFE70AEF757D}.Release|x86.ActiveCfg = Release|Any CPU
+		{207C8E34-1EF6-4C42-B17A-A4A89EB8159D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{207C8E34-1EF6-4C42-B17A-A4A89EB8159D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{207C8E34-1EF6-4C42-B17A-A4A89EB8159D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{207C8E34-1EF6-4C42-B17A-A4A89EB8159D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{207C8E34-1EF6-4C42-B17A-A4A89EB8159D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{207C8E34-1EF6-4C42-B17A-A4A89EB8159D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{207C8E34-1EF6-4C42-B17A-A4A89EB8159D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{207C8E34-1EF6-4C42-B17A-A4A89EB8159D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{207C8E34-1EF6-4C42-B17A-A4A89EB8159D}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = ClickATaxi.Domain.vsmdi
+	EndGlobalSection
+EndGlobal

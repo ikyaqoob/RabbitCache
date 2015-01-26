@@ -1,0 +1,14 @@
+**/*.user
+**/*.userprefs
+*.user
+*.userprefs
+*.suo
+*.tss
+_ReSharper*
+**/bin
+**/obj
+**/*.pidb
+*.DotSettings
+
+/Packages
+/_ReSharper.RabbitCache
