@@ -1,17 +1,13 @@
 # RabbitCache
 Forward only distributed local in memory cache for spatial and regular collections.
 
-
-
-
 Dont use this cache for you primary cache to offload database server transactions.
 Use it for spefific needs where data changes often and you need to have a fast accesible layer of data, tailored to he need.
 
 For example data about traffic changes in a maps application, where here the data often changes and updated.
 
-
-Usage:
-// -------------------------------------------------------------------------------------------------------------------------------
+Example usage:
+// --------------------------------------------------------------------------------------------------------------------------
 // Initialize your IoC.
 var _myWindsorContainer = new WindsorContainer();
             
@@ -42,7 +38,7 @@ var _collectionCacheResult = _collectionCache.Get(new object());
 
 // Shutdown RabbitCache. On application shutdown.
 RabbitCache.Configuration.Shutdown();
-// -------------------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------------
 
 
 Only by using the Service and Service Factory CacheEntries are passed through the Rabbit MQ message system.
