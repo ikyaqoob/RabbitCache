@@ -6,13 +6,14 @@ Use it for spefific needs where data changes often and you need to have a fast a
 
 For example data about traffic changes in a maps application, where here the data often changes and updated.
 
-Example usage:
-// Initialize your IoC.
-var _myWindsorContainer = new WindsorContainer();
+
+Example Usage:
+<code>// Initialize your IoC.</code>
+<code>var _myWindsorContainer = new WindsorContainer();</code>
             
-// Initialize RabbitCache Windsor Component Registration and Cache initialization. 
+<code>// Initialize RabbitCache Windsor Component Registration and Cache initialization.
 // * Also useful to override specific components used by RabbitCache for changed RabbitMQ Bus configuration or different serialization handling.
-RabbitCache.Configuration.Initialize(_myWindsorContainer);
+RabbitCache.Configuration.Initialize(_myWindsorContainer);</code>
 
 // The Assembly that contains implementation of ICacheable<> interface. All implementations of this interfaces will get a Cache setup durng Configuration Initialization.
 var _myAssembly = Assembly.GetExecutingAssembly();
@@ -37,12 +38,8 @@ var _collectionCacheResult = _collectionCache.Get(new object());
 
 // Shutdown RabbitCache. On application shutdown.
 RabbitCache.Configuration.Shutdown();
---------------------------------------------------------------------------------------------------------------------------
-
+</code>
 
 Only by using the Service and Service Factory CacheEntries are passed through the Rabbit MQ message system.
 Methods available on the ICache implementations are for different usage, and should be avoided unless you are injecting own Transport Layer and Different IService Implementation. 
 IService will later be expanded to include an easier way of querying the underlying caches.
-
-
-
