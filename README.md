@@ -13,8 +13,7 @@ Example Usage:
 	// Initialize IoC
 	var _myWindsorContainer = new WindsorContainer();
 	// Initialize RabbitCache Windsor Component Registration and Cache initialization.
-	// * Also useful to override specific components used by RabbitCache for changed RabbitMQ Bus configuration or
-	     different serialization handling.
+	// * Also useful to override specific components used by RabbitCache for changed RabbitMQ Bus configuration or different serialization handling.
 	RabbitCache.Configuration.Initialize(_myWindsorContainer);
 
 	// The Assembly that contains implementation of ICacheable<> interface. All implementations of this interfaces 	will get a Cache setup durng Configuration Initialization.
@@ -27,9 +26,7 @@ Example Usage:
 	var _service = RabbitCache.ServiceFactory.CreateService(_myAssembly, "MyRabbitCacheService");
 
 	// Add a new Cache Entry.
-	// * _service.ReceiveCacheEntry(ICacheEntry) is automatically called by all Subscribers. This is usually the same
-	      applicaton on a different server, so by using these libraries, its automatically subscriping and will recieve
-	      the CacheEntry.
+	// * _service.ReceiveCacheEntry(ICacheEntry) is automatically called by all Subscribers. This is usually the same applicaton on a different server, so by using these libraries, its automatically subscriping and will recieve the CacheEntry.
 	_service.AddCacheEntry(new CacheEntry());
 
 	// Get CacheEntry and Query (Spatial)
