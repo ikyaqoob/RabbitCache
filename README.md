@@ -8,36 +8,37 @@ For example data about traffic changes in a maps application, where here the dat
 
 
 Example Usage:
-<code>// Initialize your IoC.</code>
-<code>var _myWindsorContainer = new WindsorContainer();</code>
-            
-<code>// Initialize RabbitCache Windsor Component Registration and Cache initialization.
-// * Also useful to override specific components used by RabbitCache for changed RabbitMQ Bus configuration or different serialization handling.
-RabbitCache.Configuration.Initialize(_myWindsorContainer);</code>
+<code>
+	// Initialize your IoC.
+	var _myWindsorContainer = new WindsorContainer();
 
-// The Assembly that contains implementation of ICacheable<> interface. All implementations of this interfaces will get a Cache setup durng Configuration Initialization.
-var _myAssembly = Assembly.GetExecutingAssembly();
+	// Initialize RabbitCache Windsor Component Registration and Cache initialization.
+	// * Also useful to override specific components used by RabbitCache for changed RabbitMQ Bus configuration or different serialization handling.
+	RabbitCache.Configuration.Initialize(_myWindsorContainer);
 
-// Must be unique, in order for not mixing up caching in the Rabbit MQ exchange layer.
-var _myServiceName = "MyRabbitCacheService";
+	// The Assembly that contains implementation of ICacheable<> interface. All implementations of this interfaces 	will get a Cache setup durng Configuration Initialization.
+	var _myAssembly = Assembly.GetExecutingAssembly();
 
-// Create the Service and register the cache stores in _myAssembly.
-var _service = RabbitCache.ServiceFactory.CreateService(_myAssembly, "MyRabbitCacheService");
+	// Must be unique, in order for not mixing up caching in the Rabbit MQ exchange layer.
+	var _myServiceName = "MyRabbitCacheService";
 
-// Add a new Cache Entry.
-// * _service.ReceiveCacheEntry(ICacheEntry) is automatically called by all Subscribers. This is usually the same applicaton on a different server, so by using these libraries, its automatically subscriping and will recieve the CacheEntry.
-_service.AddCacheEntry(new CacheEntry());
+	// Create the Service and register the cache stores in _myAssembly.
+	var _service = RabbitCache.ServiceFactory.CreateService(_myAssembly, "MyRabbitCacheService");
 
-// Get CacheEntry and Query (Spatial)
-var _spatialCache = _service.GetCache<SpatialCache<Coordinate, object, object>>();
-var _spatialResult = _spatialCache.Query(new Coordinate(), 10);
+	// Add a new Cache Entry.
+	// * _service.ReceiveCacheEntry(ICacheEntry) is automatically called by all Subscribers. This is usually the same applicaton on a different server, so by using these libraries, its automatically subscriping and will recieve the CacheEntry.
+	_service.AddCacheEntry(new CacheEntry());
 
-// Get CacheEntry and Query (Spatial)
-var _collectionCache = _service.GetCache<CollectionCache<object, object>>();
-var _collectionCacheResult = _collectionCache.Get(new object());
+	// Get CacheEntry and Query (Spatial)
+	var _spatialCache = _service.GetCache<SpatialCache<Coordinate, object, object>>();
+	var _spatialResult = _spatialCache.Query(new Coordinate(), 10);
 
-// Shutdown RabbitCache. On application shutdown.
-RabbitCache.Configuration.Shutdown();
+	// Get CacheEntry and Query (Spatial)
+	var _collectionCache = _service.GetCache<CollectionCache<object, object>>();
+	var _collectionCacheResult = _collectionCache.Get(new object());
+
+	// Shutdown RabbitCache. On application shutdown.
+	RabbitCache.Configuration.Shutdown();
 </code>
 
 Only by using the Service and Service Factory CacheEntries are passed through the Rabbit MQ message system.
