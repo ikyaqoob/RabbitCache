@@ -104,8 +104,10 @@
     <Compile Include="Extensions\DoubleExtensionTest.cs" />
     <Compile Include="Extensions\MathExtensionTest.cs" />
     <Compile Include="Extensions\QuadtreeExtensionTest.cs" />
+    <Compile Include="ServiceFactoryTest.cs" />
     <Compile Include="ServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestBase.cs" />
     <Compile Include="TestCache.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -115,8 +117,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\RabbitCache\RabbitCache.config">
+      <Link>RabbitCache.config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

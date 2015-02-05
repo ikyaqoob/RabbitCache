@@ -1,6 +1,5 @@
 using System.Reflection;
 using System.Resources;
-using System.Runtime.CompilerServices; 
 
 #if DEBUG
 	[assembly: AssemblyConfiguration("Debug")]

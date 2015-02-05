@@ -17,7 +17,7 @@ namespace RabbitCache.Helpers
             // ReSharper restore StaticFieldInGenericType
         }
 
-        protected static T Instance
+        protected internal static T Instance
         {
             get { return SingletonCreator._instance; }
         }

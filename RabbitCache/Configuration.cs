@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Configuration;
 using System.Text.RegularExpressions;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using EasyNetQ;
 using log4net;
 using RabbitCache.Caches.Serialization;
-using RabbitCache.Contracts;
 using RabbitCache.Helpers;
-using RabbitCache.Interfaces;
 
 namespace RabbitCache
 {
+    /// <summary>
+    /// Configuration and IoC of RabbitCache.
+    /// </summary>
     public class Configuration : Singleton<Configuration>
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(Configuration));
@@ -21,9 +21,8 @@ namespace RabbitCache
 
         internal static string ServiceBusName
         {
-            get { return ConfigurationManager.AppSettings["SERVICE_BUS_NAME"]; }
+            get { return ConfigurationSectionHandler.GetSection().ConnectionStringElement.Value; }
         }
-
         internal static IBus RabbitMqCacheBus
         {
             get
@@ -50,6 +49,12 @@ namespace RabbitCache
             }
         }
   
+        /// <summary>
+        /// Execute in the on application start. 
+        /// Pass any existing <see cref="WindsorContainer"/> to extend other libraries or to override Serivce and Configuration of RabbitCahce.
+        /// Passing null will create new.
+        /// </summary>
+        /// <param name="_windsorContainer">Existing <see cref="WindsorContainer"/></param>
         public static void Initialize(IWindsorContainer _windsorContainer = null)
         {
             if (_windsorContainer == null)
@@ -57,17 +62,20 @@ namespace RabbitCache
             
             try
             {
-                Configuration.Instance._windsorContainer = 
-                    _windsorContainer
-                        .Register(Component.For<IService>().ImplementedBy<Service>().LifeStyle.Transient.IsFallback())
-                        .Register(Component.For<ISerializer>().ImplementedBy<CacheEntryJsonSerializer>().LifeStyle.Transient.IsFallback())
-                        .Register(Component.For<IConsumerErrorStrategy>().ImplementedBy<CacheConsumerErrorStrategy>().LifeStyle.Transient.IsFallback())
-                        .Register(Component.For<IBus>().Named(Configuration.ServiceBusName).UsingFactoryMethod(() =>
-                            RabbitHutch.CreateBus(Dependency.OnAppSettingsValue("CONNECTION_STRING").Value, _x => _x
-                                .Register(_y => (SerializeType)Configuration.TypeNameSerializer.Serialize)
-                                .Register(_y => _windsorContainer.Resolve<ISerializer>())
-                                .Register(_y => _windsorContainer.Resolve<IConsumerErrorStrategy>())))
-                        .LifeStyle.Singleton.IsFallback());
+                _windsorContainer
+                    .Register(Component.For<IService>().ImplementedBy<Service>().LifeStyle.Transient.IsFallback())
+                    .Register(Component.For<ISerializer>().ImplementedBy<CacheEntryJsonSerializer>().LifeStyle.Transient.IsFallback())
+                    .Register(Component.For<IConsumerErrorStrategy>().ImplementedBy<CacheConsumerErrorStrategy>().LifeStyle.Transient.IsFallback());
+
+                if (!_windsorContainer.Kernel.HasComponent(Configuration.ServiceBusName))
+                    _windsorContainer.Register(Component.For<IBus>().Named(Configuration.ServiceBusName).UsingFactoryMethod(() =>
+                        RabbitHutch.CreateBus(ConfigurationSectionHandler.GetSection().ConnectionStringElement.Value, _x => _x
+                            .Register(_y => (SerializeType)Configuration.TypeNameSerializer.Serialize)
+                            .Register(_y => _windsorContainer.Resolve<ISerializer>())
+                            .Register(_y => _windsorContainer.Resolve<IConsumerErrorStrategy>())))
+                    .LifeStyle.Singleton.IsFallback());
+
+                Configuration.Instance._windsorContainer = _windsorContainer;
 
                 Configuration._logger.Info("RabbitCache Initialized");
             }
@@ -76,6 +84,10 @@ namespace RabbitCache
                 throw new SystemException(string.Format("Fatal IoC initialization error. Program stopped.{0}  ==> {1}", System.Environment.NewLine, _ex.Message), _ex);
             }
         }
+        /// <summary>
+        /// Execute on application shutdown.
+        /// Clears IoC Singletons and disposes of objects and connections used by RabbitCache.
+        /// </summary>
         public static void Shutdown()
         {
             if (Configuration.Instance._rabbitMqCacheBus != null)
@@ -94,6 +106,9 @@ namespace RabbitCache
         }
 
         // Nested class
+        /// <summary>
+        /// Type Naming.
+        /// </summary>
         public static class TypeNameSerializer
         {
             public static string Serialize(Type _type)

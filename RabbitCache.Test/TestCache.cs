@@ -4,7 +4,7 @@ using RabbitCache.Caches.Interfaces;
 
 namespace RabbitCache.Test
 {
-    public class TestCache : ICache
+    public class TestCache : ICache, ICacheable<TestCache>
     {
         public TestCache()
         {

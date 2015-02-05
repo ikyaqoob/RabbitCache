@@ -7,7 +7,11 @@ namespace RabbitCache.Extensions
     {
         public static ComponentRegistration<T> Override<T>(this ComponentRegistration<T> _componentRegistration) where T : class
         {
-            return _componentRegistration.Named(Guid.NewGuid().ToString()).IsDefault();
+            return _componentRegistration.Override(Guid.NewGuid().ToString());
+        }
+        public static ComponentRegistration<T> Override<T>(this ComponentRegistration<T> _componentRegistration, string _name) where T : class
+        {
+            return _componentRegistration.Named(_name).IsDefault();
         }
     }
 }
