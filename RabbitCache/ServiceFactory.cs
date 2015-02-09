@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Castle.Core.Internal;
 using EasyNetQ.Topology;
@@ -55,6 +56,9 @@ namespace RabbitCache
 
             if (_serviceName == null) 
                 throw new ArgumentNullException("_serviceName");
+
+            if (Configuration.WindsorContainer == null)
+                throw new NullReferenceException("RabbitCache.Configuration.WindsorContainer == null");
 
             var _service = Configuration.WindsorContainer.Resolve<IService>(new { _assembly, _serviceName });
             ServiceFactory.Instance.RegisterAll(_service);
