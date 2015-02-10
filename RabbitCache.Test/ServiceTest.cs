@@ -6,7 +6,7 @@ using EasyNetQ;
 using EasyNetQ.Topology;
 using Moq;
 using NUnit.Framework;
-using RabbitCache.Contracts.Interfaces;
+using RabbitCache.Contracts;
 using RabbitCache.Extensions;
 
 namespace RabbitCache.Test
@@ -23,7 +23,7 @@ namespace RabbitCache.Test
         public void GetCacheTest()
         {
             var _mockBus = new Mock<IBus> { CallBase = false };
-            _mockBus.Setup(_x => _x.Advanced.Subscribe(It.IsAny<IQueue>(), It.IsAny<Func<IMessage<ICacheEntry>, MessageReceivedInfo, Task>>()));
+            _mockBus.Setup(_x => _x.Advanced.Subscribe(It.IsAny<IQueue>(), It.IsAny<Func<IMessage<CacheEntry>, MessageReceivedInfo, Task>>()));
 
             var _windsorContainer = new WindsorContainer()
                 .Register(Component.For<IBus>().Instance(_mockBus.Object).LifeStyle.Singleton.Override(Configuration.ServiceBusName));
@@ -42,7 +42,7 @@ namespace RabbitCache.Test
         public void GetCacheTTest()
         {
             var _mockBus = new Mock<IBus> { CallBase = false };
-            _mockBus.Setup(_x => _x.Advanced.Subscribe(It.IsAny<IQueue>(), It.IsAny<Func<IMessage<ICacheEntry>, MessageReceivedInfo, Task>>()));
+            _mockBus.Setup(_x => _x.Advanced.Subscribe(It.IsAny<IQueue>(), It.IsAny<Func<IMessage<CacheEntry>, MessageReceivedInfo, Task>>()));
 
             var _windsorContainer = new WindsorContainer()
                 .Register(Component.For<IBus>().Instance(_mockBus.Object).LifeStyle.Singleton.Override(Configuration.ServiceBusName));
@@ -59,11 +59,11 @@ namespace RabbitCache.Test
         public void AddCacheEntryTest()
         {
             var _mockBus = new Mock<IBus> { CallBase = false };
-            _mockBus.Setup(_x => _x.Advanced.Subscribe(It.IsAny<IQueue>(), It.IsAny<Func<IMessage<ICacheEntry>, MessageReceivedInfo, Task>>()));
+            _mockBus.Setup(_x => _x.Advanced.Subscribe(It.IsAny<IQueue>(), It.IsAny<Func<IMessage<CacheEntry>, MessageReceivedInfo, Task>>()));
 
             var _serviceMock = new Mock<IService> { CallBase = false };
-            _serviceMock.Setup(_x => _x.AddCacheEntry(It.IsAny<ICacheEntry>()))
-                .Callback<ICacheEntry>(_cacheEntry => _serviceMock.Object.ReceiveCacheEntry(_cacheEntry));
+            _serviceMock.Setup(_x => _x.AddCacheEntry(It.IsAny<CacheEntry>()))
+                .Callback<CacheEntry>(_cacheEntry => _serviceMock.Object.ReceiveCacheEntry(_cacheEntry));
 
             var _windsorContainer = new WindsorContainer()
                 .Register(Component.For<IService>().Instance(_serviceMock.Object).Override())
@@ -71,7 +71,7 @@ namespace RabbitCache.Test
 
             RabbitCache.Configuration.Initialize(_windsorContainer);
 
-            var _cacheEntryMock = new Mock<ICacheEntry>();
+            var _cacheEntryMock = new Mock<CacheEntry>();
             _serviceMock.Object.AddCacheEntry(_cacheEntryMock.Object);
             _serviceMock.Verify(_x => _x.AddCacheEntry(_cacheEntryMock.Object), Times.Once);
             _serviceMock.Verify(_x => _x.ReceiveCacheEntry(_cacheEntryMock.Object), Times.Once);
@@ -80,7 +80,7 @@ namespace RabbitCache.Test
         public void AddCacheEntryWhenNullTest()
         {
             var _mockBus = new Mock<IBus> { CallBase = false };
-            _mockBus.Setup(_x => _x.Advanced.Subscribe(It.IsAny<IQueue>(), It.IsAny<Func<IMessage<ICacheEntry>, MessageReceivedInfo, Task>>()));
+            _mockBus.Setup(_x => _x.Advanced.Subscribe(It.IsAny<IQueue>(), It.IsAny<Func<IMessage<CacheEntry>, MessageReceivedInfo, Task>>()));
 
             var _windsorContainer = new WindsorContainer()
                 .Register(Component.For<IBus>().Instance(_mockBus.Object).LifeStyle.Singleton.Override(Configuration.ServiceBusName));
@@ -94,12 +94,12 @@ namespace RabbitCache.Test
         public void ReceiveCacheEntryTest()
         {
             var _mockBus = new Mock<IBus> { CallBase = false };
-            _mockBus.Setup(_x => _x.Advanced.Subscribe(It.IsAny<IQueue>(), It.IsAny<Func<IMessage<ICacheEntry>, MessageReceivedInfo, Task>>()));
+            _mockBus.Setup(_x => _x.Advanced.Subscribe(It.IsAny<IQueue>(), It.IsAny<Func<IMessage<CacheEntry>, MessageReceivedInfo, Task>>()));
 
             var _serviceMock = new Mock<IService> { CallBase = false };
             _serviceMock
-                .Setup(_x => _x.ReceiveCacheEntry(It.IsAny<ICacheEntry>()))
-                .Callback<ICacheEntry>(_cacheEntry =>
+                .Setup(_x => _x.ReceiveCacheEntry(It.IsAny<CacheEntry>()))
+                .Callback<CacheEntry>(_cacheEntry =>
                 {
                     var _cache = _serviceMock.Object.GetCache(_cacheEntry.CacheType);
 
@@ -113,7 +113,7 @@ namespace RabbitCache.Test
 
             RabbitCache.Configuration.Initialize(_windsorContainer);
 
-            var _cacheEntryMock = new Mock<ICacheEntry>();
+            var _cacheEntryMock = new Mock<CacheEntry>();
 
             _serviceMock.Object.ReceiveCacheEntry(_cacheEntryMock.Object);
             _serviceMock.Verify(_x => _x.ReceiveCacheEntry(_cacheEntryMock.Object), Times.Once);
@@ -122,7 +122,7 @@ namespace RabbitCache.Test
         public void ReceiveCacheEntryWhenNullTest()
         {
             var _mockBus = new Mock<IBus> { CallBase = false };
-            _mockBus.Setup(_x => _x.Advanced.Subscribe(It.IsAny<IQueue>(), It.IsAny<Func<IMessage<ICacheEntry>, MessageReceivedInfo, Task>>()));
+            _mockBus.Setup(_x => _x.Advanced.Subscribe(It.IsAny<IQueue>(), It.IsAny<Func<IMessage<CacheEntry>, MessageReceivedInfo, Task>>()));
 
             var _windsorContainer = new WindsorContainer()
                 .Register(Component.For<IBus>().Instance(_mockBus.Object).LifeStyle.Singleton.Override(Configuration.ServiceBusName));

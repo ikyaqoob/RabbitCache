@@ -6,7 +6,7 @@ using EasyNetQ;
 using EasyNetQ.Topology;
 using Moq;
 using NUnit.Framework;
-using RabbitCache.Contracts.Interfaces;
+using RabbitCache.Contracts;
 using RabbitCache.Extensions;
 
 namespace RabbitCache.Test
@@ -17,7 +17,7 @@ namespace RabbitCache.Test
         public virtual void SetupFixture()
         {
             var _mock = new Mock<IBus> { CallBase = false };
-            _mock.Setup(_x => _x.Advanced.Subscribe(It.IsAny<IQueue>(), It.IsAny<Func<IMessage<ICacheEntry>, MessageReceivedInfo, Task>>()));
+            _mock.Setup(_x => _x.Advanced.Subscribe(It.IsAny<IQueue>(), It.IsAny<Func<IMessage<CacheEntry>, MessageReceivedInfo, Task>>()));
 
             var _windsorContainer = new WindsorContainer()
                 .Register(Component.For<IBus>().Instance(_mock.Object).LifeStyle.Singleton.Override(Configuration.ServiceBusName));

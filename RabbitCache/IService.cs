@@ -2,7 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Reflection;
 using RabbitCache.Caches.Interfaces;
-using RabbitCache.Contracts.Interfaces;
+using RabbitCache.Contracts;
 
 namespace RabbitCache
 {
@@ -44,12 +44,12 @@ namespace RabbitCache
         /// Adds a new CacheEntry by passing it through the RabbitCache transport layer, pushing it to all subscribers. 
         /// </summary>
         /// <param name="_cacheEntry">The CacehEntry contract that will be send.</param>
-        void AddCacheEntry(ICacheEntry _cacheEntry);
+        void AddCacheEntry(CacheEntry _cacheEntry);
         /// <summary>
         /// Recieves a Cache Entry paassed through the RabbitCahce transport layer.
         /// This method does not need to be called explicitly when service is created using <see cref="ServiceFactory.CreateService(IService)"/>
         /// </summary>
         /// <param name="_cacheEntry">The CacehEntry contract received.</param>
-        void ReceiveCacheEntry(ICacheEntry _cacheEntry);
+        void ReceiveCacheEntry(CacheEntry _cacheEntry);
     }
 }

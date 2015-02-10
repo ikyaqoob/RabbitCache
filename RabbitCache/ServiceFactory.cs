@@ -1,13 +1,12 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Castle.Core.Internal;
 using EasyNetQ.Topology;
 using log4net;
 using RabbitCache.Caches.Interfaces;
-using RabbitCache.Contracts.Interfaces;
+using RabbitCache.Contracts;
 using RabbitCache.Helpers;
 
 namespace RabbitCache
@@ -104,7 +103,7 @@ namespace RabbitCache
             if (_service == null) 
                 throw new ArgumentNullException("_service");
 
-            Configuration.RabbitMqCacheBus.Advanced.Subscribe<ICacheEntry>(this.GetQueue(_service), (_message, _info) => Task.Factory.StartNew(() =>
+            Configuration.RabbitMqCacheBus.Advanced.Subscribe<CacheEntry>(this.GetQueue(_service), (_message, _info) => Task.Factory.StartNew(() =>
             {
                 try
                 {

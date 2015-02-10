@@ -30,7 +30,7 @@ namespace RabbitCache.Caches.Serialization
                 ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
                 Error = (_serializer, _error) =>
                 {
-                    CacheEntryJsonSerializer._logger.Debug(_error.ErrorContext.Error);
+                    CacheEntryJsonSerializer._logger.Info("Json Error: " + _error.ErrorContext.Error);
                     _error.ErrorContext.Handled = true;
                 },
             };

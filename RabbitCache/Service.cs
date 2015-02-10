@@ -5,7 +5,7 @@ using EasyNetQ;
 using EasyNetQ.Topology;
 using log4net;
 using RabbitCache.Caches.Interfaces;
-using RabbitCache.Contracts.Interfaces;
+using RabbitCache.Contracts;
 
 namespace RabbitCache
 {
@@ -78,7 +78,7 @@ namespace RabbitCache
         /// Adds a new CacheEntry by passing it through the RabbitCache transport layer, pushing it to all subscribers. 
         /// </summary>
         /// <param name="_cacheEntry">The CacehEntry contract that will be send.</param>
-        public virtual void AddCacheEntry(ICacheEntry _cacheEntry)
+        public virtual void AddCacheEntry(CacheEntry _cacheEntry)
         {
             if (_cacheEntry == null)
                 throw new ArgumentNullException("_cacheEntry");
@@ -86,7 +86,7 @@ namespace RabbitCache
             using (var _channel = Configuration.RabbitMqCacheBus.Advanced.OpenPublishChannel())
             {
                 var _exchange = Exchange.DeclareFanout(this.Name);
-                var _message = new Message<ICacheEntry>(_cacheEntry);
+                var _message = new Message<CacheEntry>(_cacheEntry);
 
                 _channel.Publish(_exchange, string.Empty, _message);
             }
@@ -98,7 +98,7 @@ namespace RabbitCache
         /// This method does not need to be called explicitly when service is created using <see cref="ServiceFactory.CreateService(IService)"/>
         /// </summary>
         /// <param name="_cacheEntry">The CacehEntry contract received.</param>
-        public virtual void ReceiveCacheEntry(ICacheEntry _cacheEntry)
+        public virtual void ReceiveCacheEntry(CacheEntry _cacheEntry)
         {
             if (_cacheEntry == null)
                 throw new ArgumentNullException("_cacheEntry");

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using log4net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using RabbitCache.Caches.Entities;

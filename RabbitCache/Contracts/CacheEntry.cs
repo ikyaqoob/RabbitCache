@@ -1,9 +1,8 @@
 ﻿using System;
-using RabbitCache.Contracts.Interfaces;
 
 namespace RabbitCache.Contracts
 {
-    public class CacheEntry : ICacheEntry
+    public class CacheEntry
     {
         public virtual Type CacheType { get; set; }
         public virtual object Key { get; set; }
