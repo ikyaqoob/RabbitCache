@@ -7,6 +7,7 @@ using System.Runtime.Caching;
 using System.Threading;
 using System.Threading.Tasks;
 using GeoAPI.Geometries;
+using log4net;
 using NetTopologySuite.Index.Quadtree;
 using RabbitCache.Caches.Entities;
 using RabbitCache.Caches.Entities.Interfaces;
@@ -210,7 +211,7 @@ namespace RabbitCache.Caches
 
                     using (new WriterLock(_readerLock))
                     {
-                        _objectCache.Remove(_value);
+                        _objectCache.Remove(_cacheItem);
                         _spatialCache.Remove(_envelope, _cacheItem);
                     }
                 }
