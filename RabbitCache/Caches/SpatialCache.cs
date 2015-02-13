@@ -19,8 +19,8 @@ namespace RabbitCache.Caches
 {
     public class SpatialCache<TSpatialKey, TSpatialValue, TObjectKeyValue> : BaseCache, ISpatialCache<TSpatialKey, TSpatialValue, TObjectKeyValue>
         where TSpatialKey : Coordinate
-        where TObjectKeyValue : class
         where TSpatialValue : class
+        where TObjectKeyValue : class, ISpatialObjectKey
     {
         private readonly ConcurrentDictionary<string, List<ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue>>> _objectCaches;
         private readonly ConcurrentDictionary<string, Quadtree<ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue>>> _spatialCaches;
@@ -204,21 +204,22 @@ namespace RabbitCache.Caches
 
             using (var _readerLock = new ReaderLock(_syncLock, Timeout.Infinite, true))
             {
-                var _cacheItem = _objectCache.FirstOrDefault(_x => _x.ObjectKeyValue == _objectKeyValue);
+                var _cacheItem = _objectCache.FirstOrDefault(_x => _x.ObjectKeyValue.UniqueIdentifier == _objectKeyValue.UniqueIdentifier);
                 if (_cacheItem != null)
                 {
                     var _envelope = new Envelope(_cacheItem.SpatialKey);
-
+              
                     using (new WriterLock(_readerLock))
                     {
                         _objectCache.Remove(_cacheItem);
                         _spatialCache.Remove(_envelope, _cacheItem);
                     }
                 }
-
-                var _newEnvelope = new Envelope(_value.SpatialKey);
+              
                 using (new WriterLock(_readerLock))
                 {
+                    var _newEnvelope = new Envelope(_value.SpatialKey);
+
                     _objectCache.Add(_value);
                     _spatialCache.Add(_newEnvelope, _value, _expirationInMilliSeconds, () => this.Remove(_value.SpatialKey, _regionName));
                 }
@@ -266,7 +267,7 @@ namespace RabbitCache.Caches
 
             using (var _readerLock = new ReaderLock(_syncLock, Timeout.Infinite, true))
             {
-                var _cacheItem = _objectCache.FirstOrDefault(_x => _x.ObjectKeyValue == _objectKeyValue);
+                var _cacheItem = _objectCache.FirstOrDefault(_x => _x.ObjectKeyValue.UniqueIdentifier == _objectKeyValue.UniqueIdentifier);
                 if (_cacheItem != null)
                 {
                     var _envelope = new Envelope(_cacheItem.SpatialKey);
@@ -274,9 +275,9 @@ namespace RabbitCache.Caches
 
                     using (new WriterLock(_readerLock))
                     {
-                        _objectCache.Remove(_value);
+                        _objectCache.Remove(_cacheItem);
                         _spatialCache.Remove(_envelope, _cacheItem);
-
+              
                         _objectCache.Add(_value);
                         _spatialCache.Add(_newEnvelope, _value, _expirationInMilliSeconds, () => this.Remove(_value.SpatialKey, _regionName));
                     }

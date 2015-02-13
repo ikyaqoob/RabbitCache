@@ -3,7 +3,7 @@ using System.Runtime.Caching;
 
 namespace RabbitCache.Caches.Interfaces
 {
-    public partial interface ICache
+    public interface ICache
     {
         /// <summary>
         /// Gets the name of a specific Cache instance. The name of a specific cache instance.

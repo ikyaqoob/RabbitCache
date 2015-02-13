@@ -91,7 +91,7 @@ namespace RabbitCache
                 _channel.Publish(_exchange, string.Empty, _message);
             }
 
-            this._logger.DebugFormat("Published:{0}{1}", Environment.NewLine, _cacheEntry);
+            this._logger.InfoFormat("Published:{0}{1}", Environment.NewLine, _cacheEntry);
         }
         /// <summary>
         /// Recieves a Cache Entry paassed through the RabbitCahce transport layer.
@@ -119,7 +119,7 @@ namespace RabbitCache
 
                 _cache.AddOrUpdateExisting(_key, _value, _expireAt, _regionName);
 
-                this._logger.DebugFormat("Received:{0}{1}", Environment.NewLine, _cacheEntry);
+                this._logger.InfoFormat("Received:{0}{1}", Environment.NewLine, _cacheEntry);
             }
             catch (Exception _ex)
             {
