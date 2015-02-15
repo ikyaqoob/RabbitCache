@@ -5,6 +5,7 @@ using System.Runtime.Caching;
 using System.Threading;
 using System.Threading.Tasks;
 using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using NUnit.Framework;
 using RabbitCache.Caches;
 using RabbitCache.Caches.Entities;
@@ -792,7 +793,89 @@ namespace RabbitCache.Test.Caches
                 Assert.LessOrEqual((DateTimeOffset.UtcNow - _dateTimeOffSet).TotalMilliseconds, 50);
             }
         }
-        
+
+        [Test]
+        public void QueryAllTest()
+        {
+            var _cache = new SpatialCache<Coordinate, object, TestKey>();
+
+            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestKey> { SpatialKey = new Coordinate(40.708210, -74.006074) };
+            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestKey> { SpatialKey = new Coordinate(40.709210, -74.006074) };
+            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestKey> { SpatialKey = new Coordinate(42.708210, -72.006074) };
+            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestKey> { SpatialKey = new Coordinate(44.708210, -71.006074) };
+
+            _cache.AddOrGetExisting(_spatialItem1.SpatialKey, _spatialItem1, "Region1");
+            _cache.AddOrGetExisting(_spatialItem2.SpatialKey, _spatialItem2, "Region2");
+            _cache.AddOrGetExisting(_spatialItem3.SpatialKey, _spatialItem3, "Region3");
+            _cache.AddOrGetExisting(_spatialItem4.SpatialKey, _spatialItem4, "Region4");
+
+            var _items = _cache.QueryAll(new Coordinate(40.055454, -74.409822), 50000);
+            Assert.AreEqual(2, _items.Count());
+        }
+
+        [Test]
+        public void IntersectTest()
+        {
+            var _cache = new SpatialCache<Coordinate, object, TestKey>();
+
+            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestKey> { SpatialKey = new Coordinate(1.0, 3.0) };
+            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestKey> { SpatialKey = new Coordinate(1.5, 1.5) };
+            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestKey> { SpatialKey = new Coordinate(1.5, 2.5) };
+            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestKey> { SpatialKey = new Coordinate(6.0, 2.5) };
+
+            _cache.AddOrGetExisting(_spatialItem1.SpatialKey, _spatialItem1);
+            _cache.AddOrGetExisting(_spatialItem2.SpatialKey, _spatialItem2);
+            _cache.AddOrGetExisting(_spatialItem3.SpatialKey, _spatialItem3);
+            _cache.AddOrGetExisting(_spatialItem3.SpatialKey, _spatialItem4);
+
+            var _polygon = new Polygon(new LinearRing(new[] { new Coordinate(1, 4), new Coordinate(2, 4), new Coordinate(2, 1), new Coordinate(1, 1), new Coordinate(1, 4) }));
+            var _items = _cache.Intersect(_polygon);
+
+            Assert.AreEqual(3, _items.Count());
+        }
+        [Test]
+        public void IntersectWhenRegionNameTest()
+        {
+            const string REGION = "TestRegion1";
+
+            var _cache = new SpatialCache<Coordinate, object, TestKey>();
+
+            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestKey> { SpatialKey = new Coordinate(1.0, 3.0) };
+            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestKey> { SpatialKey = new Coordinate(1.5, 1.5) };
+            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestKey> { SpatialKey = new Coordinate(1.5, 2.5) };
+            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestKey> { SpatialKey = new Coordinate(6.0, 2.5) };
+
+            _cache.AddOrGetExisting(_spatialItem1.SpatialKey, _spatialItem1, REGION);
+            _cache.AddOrGetExisting(_spatialItem2.SpatialKey, _spatialItem2, "TestRegion2");
+            _cache.AddOrGetExisting(_spatialItem3.SpatialKey, _spatialItem3, "TestRegion3");
+            _cache.AddOrGetExisting(_spatialItem4.SpatialKey, _spatialItem4, "TestRegion4");
+
+            var _polygon = new Polygon(new LinearRing(new[] { new Coordinate(1, 4), new Coordinate(2, 4), new Coordinate(2, 1), new Coordinate(1, 1), new Coordinate(1, 4) }));
+            var _items = _cache.Intersect(_polygon, REGION);
+
+            Assert.AreEqual(1, _items.Count());
+        }
+        [Test]
+        public void IntersectWhenEmptyTest()
+        {
+            var _cache = new SpatialCache<Coordinate, object, TestKey>();
+
+            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestKey> { SpatialKey = new Coordinate(1.5, 3.0) };
+            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestKey> { SpatialKey = new Coordinate(3.0, 1.5) };
+            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestKey> { SpatialKey = new Coordinate(1.707210, 1.006074) };
+            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestKey> { SpatialKey = new Coordinate(4.708210, 4.006074) };
+
+            _cache.AddOrGetExisting(_spatialItem1.SpatialKey, _spatialItem1);
+            _cache.AddOrGetExisting(_spatialItem2.SpatialKey, _spatialItem2);
+            _cache.AddOrGetExisting(_spatialItem3.SpatialKey, _spatialItem3);
+            _cache.AddOrGetExisting(_spatialItem4.SpatialKey, _spatialItem4);
+
+            var _polygon = new Polygon(new LinearRing(new[] { new Coordinate(10, 40), new Coordinate(20, 40), new Coordinate(2, 1), new Coordinate(10, 10), new Coordinate(10, 40) }));
+            var _items = _cache.Intersect(_polygon);
+
+            Assert.AreEqual(0, _items.Count());
+        }
+
         [Test]
         public void GetValuesTest()
         {

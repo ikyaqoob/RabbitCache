@@ -57,7 +57,7 @@ namespace RabbitCache.Caches.Interfaces
         /// <param name="_value">The object to insert.</param>
         /// <param name="_policy">An object that contains eviction details for the cache entry. This object provides more options for eviction than a simple absolute expiration.</param>
         /// <param name="_regionName">Optional. A named region in the cache to which the cache entry can be added, if regions are implemented. The default value for the optional parameter is null.</param>
-        /// <returns></returns>
+        /// <returns>The added/updated SpatcialCacheItem.</returns>
         ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue> AddOrGetExisting(TSpatialKey _key, ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue> _value, CacheItemPolicy _policy, string _regionName = null);
         /// <summary>
         /// When overridden in a derived class, inserts a cache entry into the cache, by using a key, an object for the cache entry, an absolute expiration value,
@@ -67,7 +67,7 @@ namespace RabbitCache.Caches.Interfaces
         /// <param name="_value">The object to insert.</param>
         /// <param name="_absoluteExpiration">The fixed date and time at which the cache entry will expire</param>
         /// <param name="_regionName">Optional. A named region in the cache to which the cache entry can be added, if regions are implemented. The default value for the optional parameter is null.</param>
-        /// <returns>If a cache entry with the same key exists, the specified cache entry's value; otherwise, null.</returns>
+        /// <returns>The added/updated SpatcialCacheItem.</returns>
         ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue> AddOrGetExisting(TSpatialKey _key, ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue> _value, DateTimeOffset? _absoluteExpiration, string _regionName = null);
         /// <summary>
         /// When overridden in a derived class, inserts or updates a cache entry into the cache, by using a key, an object for the cache entry, an absolute expiration value,
@@ -77,7 +77,7 @@ namespace RabbitCache.Caches.Interfaces
         /// <param name="_value"></param>
         /// <param name="_absoluteExpiration"></param>
         /// <param name="_regionName"></param>
-        /// <returns></returns>
+        /// <returns>The added/updated SpatcialCacheItem.</returns>
         ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue> AddOrUpdateExisting(TObjectKeyValue _objectKeyValue, ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue> _value, DateTimeOffset? _absoluteExpiration, string _regionName = null);
         /// <summary>
         /// When overridden in a derived class, removes the cache entry from the cache.
@@ -85,6 +85,28 @@ namespace RabbitCache.Caches.Interfaces
         /// <param name="_key">A unique identifier for the cache entry.</param>
         /// <param name="_regionName">Optional. A named region in the cache to which the cache entry can be added, if regions are implemented. The default value for the optional parameter is null.</param>
         void Remove(TSpatialKey _key, string _regionName = null);
+        /// <summary>
+        /// Returns all Cache Entries with the passed disatnce, within the Region.
+        /// </summary>
+        /// <param name="_key"></param>
+        /// <param name="_distanceInMeters"></param>
+        /// <param name="_regionName"></param>
+        /// <returns>Cache Entries within distance.</returns>
+        IEnumerable<ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue>> Query(TSpatialKey _key, double _distanceInMeters, string _regionName = null);
+        /// <summary>
+        /// Queries all regions for Cache Items within the passed distance.
+        /// </summary>
+        /// <param name="_key"></param>
+        /// <param name="_distanceInMeters"></param>
+        /// <returns>Cache Entries within distance in all regions.</returns>
+        IEnumerable<ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue>> QueryAll(TSpatialKey _key, double _distanceInMeters);
+        /// <summary>
+        /// Queries all Cache Items inside the passed Polygon, within the region.
+        /// </summary>
+        /// <param name="_polygon"></param>
+        /// <param name="_regionName"></param>
+        /// <returns>Cache Entries intersecting th Polygon.</returns>
+        IEnumerable<ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue>> Intersect(IPolygon _polygon, string _regionName = null);
         /// <summary>
         /// When overridden in a derived class, inserts a cache entry into the cache.
         /// </summary>
