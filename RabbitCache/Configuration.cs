@@ -14,6 +14,7 @@ namespace RabbitCache
     /// </summary>
     public class Configuration : Singleton<Configuration>
     {
+        private static readonly object _syncLock = new object(); 
         private static readonly ILog _logger = LogManager.GetLogger(typeof(Configuration));
 
         private IBus _rabbitMqCacheBus;
@@ -27,12 +28,15 @@ namespace RabbitCache
         {
             get
             {
-                if (Configuration.Instance._rabbitMqCacheBus == null || !Configuration.Instance._rabbitMqCacheBus.IsConnected)
+                lock (_syncLock)
                 {
-                    if (Configuration.Instance._rabbitMqCacheBus != null)
-                        Configuration.Instance._rabbitMqCacheBus.Dispose();
+                    if (Configuration.Instance._rabbitMqCacheBus == null || !Configuration.Instance._rabbitMqCacheBus.IsConnected)
+                    {
+                        if (Configuration.Instance._rabbitMqCacheBus != null)
+                            Configuration.Instance._rabbitMqCacheBus.Dispose();
 
-                    Configuration.Instance._rabbitMqCacheBus = Configuration.WindsorContainer.Resolve<IBus>(Configuration.ServiceBusName);
+                        Configuration.Instance._rabbitMqCacheBus = Configuration.WindsorContainer.Resolve<IBus>(Configuration.ServiceBusName);
+                    }
                 }
 
                 return Configuration.Instance._rabbitMqCacheBus;
