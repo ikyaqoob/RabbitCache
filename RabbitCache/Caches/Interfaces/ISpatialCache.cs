@@ -94,13 +94,6 @@ namespace RabbitCache.Caches.Interfaces
         /// <returns>Cache Entries within distance.</returns>
         IEnumerable<ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue>> Query(TSpatialKey _key, double _distanceInMeters, string _regionName = null);
         /// <summary>
-        /// Queries all regions for Cache Items within the passed distance.
-        /// </summary>
-        /// <param name="_key"></param>
-        /// <param name="_distanceInMeters"></param>
-        /// <returns>Cache Entries within distance in all regions.</returns>
-        IEnumerable<ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue>> QueryAll(TSpatialKey _key, double _distanceInMeters);
-        /// <summary>
         /// Queries all Cache Items inside the passed Polygon, within the region.
         /// </summary>
         /// <param name="_polygon"></param>

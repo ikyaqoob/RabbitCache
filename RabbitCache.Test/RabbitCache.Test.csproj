@@ -98,6 +98,7 @@
     <Compile Include="Caches\SpatialCacheTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="TestSpatialObjectKey.cs" />
     <Compile Include="ConfigurationTest.cs" />
     <Compile Include="Extensions\CollectionExtensionTest.cs" />
     <Compile Include="Extensions\DictionaryExtensionTest.cs" />

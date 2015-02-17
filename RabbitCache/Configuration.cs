@@ -28,17 +28,21 @@ namespace RabbitCache
         {
             get
             {
-                lock (_syncLock)
+                if (Configuration.Instance._rabbitMqCacheBus == null || !Configuration.Instance._rabbitMqCacheBus.IsConnected)
                 {
-                    if (Configuration.Instance._rabbitMqCacheBus == null || !Configuration.Instance._rabbitMqCacheBus.IsConnected)
+                    lock (_syncLock)
                     {
-                        if (Configuration.Instance._rabbitMqCacheBus != null)
+                        if (Configuration.Instance._rabbitMqCacheBus != null && !Configuration.Instance._rabbitMqCacheBus.IsConnected)
+                        {
                             Configuration.Instance._rabbitMqCacheBus.Dispose();
+                            Configuration.Instance._rabbitMqCacheBus = null;
+                        }
 
-                        Configuration.Instance._rabbitMqCacheBus = Configuration.WindsorContainer.Resolve<IBus>(Configuration.ServiceBusName);
+                        if (Configuration.Instance._rabbitMqCacheBus == null)
+                            Configuration.Instance._rabbitMqCacheBus = Configuration.WindsorContainer.Resolve<IBus>(Configuration.ServiceBusName);
                     }
                 }
-
+ 
                 return Configuration.Instance._rabbitMqCacheBus;
             }
         }

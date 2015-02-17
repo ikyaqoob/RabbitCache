@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Threading;
-using System.Threading.Tasks;
 using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.Index.Quadtree;
@@ -329,34 +328,9 @@ namespace RabbitCache.Caches
             using (new ReaderLock(_syncLock))
             {
                 return _spatialCache.Query(_envelope)
-                    .Select(_x => new { @object = _x, distance = MathExtension.HaversineInMeters(_x.SpatialKey, _key) })
-                    .Where(_x => _x.distance <= _distanceInMeters)
-                    .OrderBy(_x => _x.distance)
-                    .Select(_x => _x.@object);
+                    .Where(_x => MathExtension.HaversineInMeters(_x.SpatialKey, _key) <= _distanceInMeters)
+                    .OrderBy(_x => MathExtension.HaversineInMeters(_x.SpatialKey, _key));
             }
-        }
-        public virtual IEnumerable<ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue>> QueryAll(TSpatialKey _key, double _distanceInMeters)
-        {
-            if (_key == null)
-                throw new ArgumentNullException("_key");
-
-            var _list = new List<IEnumerable<ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue>>>();
-            Parallel.ForEach(_spatialCaches.Keys, _regionName =>
-            {
-                var _spatialCache = this._spatialCaches[_regionName];
-                var _syncLock = this._syncLocks[_regionName];
-
-                var _envelope = new Envelope(_key);
-                _envelope.ExpandBy(_distanceInMeters * 0.0000089928);
-
-                using (new ReaderLock(_syncLock))
-                {
-                    var _items = _spatialCache.Query(_envelope).Where(_x => MathExtension.HaversineInMeters(_x.SpatialKey, _key) <= _distanceInMeters);
-                    _list.Add(_items);
-                }
-            });
-
-            return _list.SelectMany(_x => _x.Select(_y => _y));
         }
         public virtual IEnumerable<ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue>> Intersect(IPolygon _polygon, string _regionName = null)
         {
@@ -367,9 +341,8 @@ namespace RabbitCache.Caches
 
             var _spatialCache = this._spatialCaches[_regionName];
             var _syncLock = this._syncLocks[_regionName];
-            
-            var _envelope = new Envelope(new Coordinate(_polygon.Centroid.X, _polygon.Centroid.Y));
-            _envelope.ExpandBy(10000000 * 0.0000089928);
+
+            var _envelope = _polygon.EnvelopeInternal;
 
             using (new ReaderLock(_syncLock))
             {
