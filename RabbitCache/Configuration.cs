@@ -81,7 +81,7 @@ namespace RabbitCache
                             .Register(_y => (SerializeType)Configuration.TypeNameSerializer.Serialize)
                             .Register(_y => _windsorContainer.Resolve<ISerializer>())
                             .Register(_y => _windsorContainer.Resolve<IConsumerErrorStrategy>())))
-                    .LifeStyle.Singleton.IsFallback());
+                    .LifeStyle.Transient.IsFallback());
 
                 Configuration.Instance._windsorContainer = _windsorContainer;
 
