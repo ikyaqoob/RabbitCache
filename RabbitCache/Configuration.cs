@@ -22,7 +22,7 @@ namespace RabbitCache
 
         internal static string ServiceBusName
         {
-            get { return ConfigurationSectionHandler.GetSection().ConnectionStringElement.Value; }
+            get { return ConfigurationSectionHandler.GetSection().ServiceBusNameElement.Value; }
         }
         internal static IBus RabbitMqCacheBus
         {
