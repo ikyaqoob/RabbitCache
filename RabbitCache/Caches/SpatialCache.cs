@@ -347,7 +347,7 @@ namespace RabbitCache.Caches
             using (new ReaderLock(_syncLock))
             {
                 return _spatialCache.Query(_envelope)
-                    .Where(_x => _polygon.Intersects(new Point(_x.SpatialKey.X, _x.SpatialKey.Y)));
+                    .Where(_x => _polygon.Intersects(new Point(_x.SpatialKey.X, _x.SpatialKey.Y) { SRID = _polygon.SRID }));
             }
         }
         public virtual IDictionary<TSpatialKey, ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue>> GetValues(IEnumerable<TSpatialKey> _keys, string _regionName = null)
