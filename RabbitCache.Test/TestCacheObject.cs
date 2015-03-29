@@ -1,5 +1,3 @@
-using System;
-
 namespace RabbitCache.Test
 {
     public class TestCacheObject
@@ -13,21 +11,21 @@ namespace RabbitCache.Test
 
             return _obj.Id == this.Id;
         }
-        public override bool Equals(Object _obj)
+        public override bool Equals(object _obj)
         {
             if (_obj == null)
                 return false;
 
-            var _vehicle = _obj as TestCacheObject;
-            if (_vehicle == null)
+            var _testCacheObject = _obj as TestCacheObject;
+            if (_testCacheObject == null)
                 return false;
 
-            return _vehicle.Id == this.Id;
+            return _testCacheObject.Id == this.Id;
         }
 
         public static bool operator ==(TestCacheObject _obj1, TestCacheObject _obj2)
         {
-            if (Object.ReferenceEquals(_obj1, _obj2))
+            if (object.ReferenceEquals(_obj1, _obj2))
                 return true;
 
             if (((object)_obj1 == null) || ((object)_obj2 == null))
@@ -42,9 +40,7 @@ namespace RabbitCache.Test
 
         public override int GetHashCode()
         {
-            // ReSharper disable BaseObjectGetHashCodeCallInGetHashCode
-            return base.GetHashCode();
-            // ReSharper restore BaseObjectGetHashCodeCallInGetHashCode
+            return this.Id.GetHashCode();
         }
     }
 }

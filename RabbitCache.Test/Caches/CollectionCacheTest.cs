@@ -166,6 +166,20 @@ namespace RabbitCache.Test.Caches
             Assert.AreEqual(_value, _actual.FirstOrDefault());
         }
         [Test]
+        public void GetWhenEqualsOverrideTest()
+        {
+            var _cache = new CollectionCache<TestCacheObject, object>();
+            var _key = new TestCacheObject { Id = "A" };
+            var _value = new object();
+
+            var _addOrGetExisting = _cache.AddOrGetExisting(_key, _value);
+            Assert.AreEqual(_value, _addOrGetExisting);
+
+            var _lookupKey = new TestCacheObject { Id = "A" };
+            var _actual = _cache.Get(_lookupKey);
+            Assert.AreEqual(_value, _actual.FirstOrDefault());
+        }
+        [Test]
         public void GetWhenNotExistsTest()
         {
             var _cache = new CollectionCache<object, object>();

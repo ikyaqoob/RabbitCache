@@ -34,8 +34,6 @@ namespace RabbitCache.Caches
             this.AddRegion(BaseCache.DEFAULT_REGION);
         }
 
-
-        // TODO Create ICollectionCacheItem / CollectionCacheItem
         public virtual long GetCount(TKey _key, string _regionName = null)
         {
             if (_key == null) 
