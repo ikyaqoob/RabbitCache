@@ -19,7 +19,7 @@ namespace RabbitCache.Caches
     public class SpatialCache<TSpatialKey, TSpatialValue, TObjectKeyValue> : BaseCache, ISpatialCache<TSpatialKey, TSpatialValue, TObjectKeyValue>
         where TSpatialKey : Coordinate
         where TSpatialValue : class
-        where TObjectKeyValue : class, ISpatialObjectKey
+        where TObjectKeyValue : class
     {
         private readonly ConcurrentDictionary<string, List<ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue>>> _objectCaches;
         private readonly ConcurrentDictionary<string, Quadtree<ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue>>> _spatialCaches;
@@ -203,7 +203,7 @@ namespace RabbitCache.Caches
 
             using (var _readerLock = new ReaderLock(_syncLock, Timeout.Infinite, true))
             {
-                var _cacheItem = _objectCache.FirstOrDefault(_x => _x.ObjectKeyValue.UniqueIdentifier == _objectKeyValue.UniqueIdentifier);
+                var _cacheItem = _objectCache.FirstOrDefault(_x => _x.ObjectKeyValue == _objectKeyValue);
                 if (_cacheItem != null)
                 {
                     var _envelope = new Envelope(_cacheItem.SpatialKey);
@@ -266,7 +266,7 @@ namespace RabbitCache.Caches
 
             using (var _readerLock = new ReaderLock(_syncLock, Timeout.Infinite, true))
             {
-                var _cacheItem = _objectCache.FirstOrDefault(_x => _x.ObjectKeyValue.UniqueIdentifier == _objectKeyValue.UniqueIdentifier);
+                var _cacheItem = _objectCache.FirstOrDefault(_x => _x.ObjectKeyValue == _objectKeyValue);
                 if (_cacheItem != null)
                 {
                     var _envelope = new Envelope(_cacheItem.SpatialKey);

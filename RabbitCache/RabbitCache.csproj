@@ -78,7 +78,6 @@
       <Link>Properties\Solution.cs</Link>
     </Compile>
     <Compile Include="Caches\Entities\Interfaces\ISpatialCacheItem.cs" />
-    <Compile Include="Caches\Entities\Interfaces\ISpatialObjectKey.cs" />
     <Compile Include="ICacheable.cs" />
     <Compile Include="ConfigurationSectionHandler.cs" />
     <Compile Include="SectionElement.cs" />

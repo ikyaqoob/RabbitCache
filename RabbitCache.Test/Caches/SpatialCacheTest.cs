@@ -19,9 +19,9 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void GetCountTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(1.11, 1.11);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -32,7 +32,7 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void GetCountWhenNoElementsTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
 
             var _count = _cache.GetCount();
             Assert.AreEqual(0, _count);
@@ -42,9 +42,9 @@ namespace RabbitCache.Test.Caches
         {
             const string REGION = "Test";
 
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(1.22, 1.22);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem, REGION);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -57,9 +57,9 @@ namespace RabbitCache.Test.Caches
         {
             const string REGION = "Test";
 
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(1.33, 1.33);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem, REGION);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -73,9 +73,9 @@ namespace RabbitCache.Test.Caches
             const string REGION = "Test";
             const string REGION2 = "Test2";
 
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(1.44, 1.44);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem, REGION);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -86,9 +86,9 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void ContainsTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(1.55, 1.55);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -99,9 +99,9 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void ContainsWhenFalseTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(1.66, 1.66);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -115,9 +115,9 @@ namespace RabbitCache.Test.Caches
         {
             const string REGION = "Test";
 
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(1.77, 1.77);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem, REGION);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -130,9 +130,9 @@ namespace RabbitCache.Test.Caches
         {
             const string REGION = "Test";
 
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(1.88, 1.88);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem, REGION);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -146,9 +146,9 @@ namespace RabbitCache.Test.Caches
             const string REGION = "Test";
             const string REGION2 = "Test2";
 
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(1.99, 1.99);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem, REGION);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -160,9 +160,9 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void GetTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(2.11, 2.11);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -173,7 +173,7 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void GetWhenNotExistsTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(2.22, 2.22);
 
             var _actual = _cache.Get(_key);
@@ -184,9 +184,9 @@ namespace RabbitCache.Test.Caches
         {
             const string REGION = "Test";
 
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(2.33, 2.33);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem, REGION);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -199,9 +199,9 @@ namespace RabbitCache.Test.Caches
         {
             const string REGION = "Test2.44";
 
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(2.44, 2.44);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem, REGION);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -216,9 +216,9 @@ namespace RabbitCache.Test.Caches
             const string REGION = "Test";
             const string REGION2 = "Test2";
 
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(2.55, 2.55);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem, REGION);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -234,12 +234,12 @@ namespace RabbitCache.Test.Caches
             const int LOOPS2 = 500;
 
             var _dictionary = new Dictionary<Coordinate, object>();
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
 
             for (var _j = 1; _j <= LOOPS2; _j++)
             {
                 var _key = new Coordinate(_j, _j);
-                var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key, SpatialValue = new object(), ObjectKeyValue = new TestSpatialObjectKey() };
+                var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key, SpatialValue = new object(), ObjectKeyValue = new TestCacheObject() };
                 _cache.AddOrGetExisting(_key, _spatialItem);
                 _dictionary.Add(_key, _spatialItem);
             }
@@ -262,9 +262,9 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void AddOrGetExistingTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(2.66, 2.66);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -272,9 +272,9 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void AddOrGetExistingWhenNotExistsTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(2.66, 2.66);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -282,9 +282,9 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void AddOrGetExistingWithObjectTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(2.66, 2.66);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting((object)_key, _spatialItem);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -294,9 +294,9 @@ namespace RabbitCache.Test.Caches
         {
             const string REGION = "Test";
 
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(2.77, 2.77);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem, REGION);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -304,9 +304,9 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void AddOrGetExistingWhenCacheItemPolicyTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(2.88, 2.88);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem, new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.UtcNow.AddMilliseconds(20) });
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -319,9 +319,9 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void AddOrGetExistingWhenAbsoluteExpirationTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(2.99, 2.99);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem, DateTimeOffset.UtcNow.AddMilliseconds(20));
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -339,13 +339,13 @@ namespace RabbitCache.Test.Caches
 
             for (var _i = 0; _i < LOOPS1; _i++)
             {
-                var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+                var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
                 var _dateTimeOffSet = DateTimeOffset.UtcNow;
 
                 for (var _j = 1; _j <= LOOPS2; _j++)
                 {
                     var _key = new Coordinate(_j, _j);
-                    var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key, SpatialValue = new object(), ObjectKeyValue = new TestSpatialObjectKey() };
+                    var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key, SpatialValue = new object(), ObjectKeyValue = new TestCacheObject() };
                     _cache.AddOrGetExisting(_key, _spatialItem);
                 }
 
@@ -361,13 +361,13 @@ namespace RabbitCache.Test.Caches
 
             for (var _i = 0; _i < LOOPS1; _i++)
             {
-                var _dictionary = new Dictionary<Coordinate, SpatialCacheItem<Coordinate, object, TestSpatialObjectKey>>();
-                var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+                var _dictionary = new Dictionary<Coordinate, SpatialCacheItem<Coordinate, object, TestCacheObject>>();
+                var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
 
                 for (var _j = 1; _j <= LOOPS2; _j++)
                 {
                     var _key = new Coordinate(_j, _j);
-                    var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key, SpatialValue = new object(), ObjectKeyValue = new TestSpatialObjectKey() };
+                    var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key, SpatialValue = new object(), ObjectKeyValue = new TestCacheObject() };
                     _dictionary.Add(_key, _spatialItem);
                 }
 
@@ -386,13 +386,13 @@ namespace RabbitCache.Test.Caches
 
             for (var _i = 0; _i < LOOPS1; _i++)
             {
-                var _dictionary = new Dictionary<Coordinate, SpatialCacheItem<Coordinate, object, TestSpatialObjectKey>>();
-                var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+                var _dictionary = new Dictionary<Coordinate, SpatialCacheItem<Coordinate, object, TestCacheObject>>();
+                var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
 
                 for (var _j = 1; _j <= LOOPS2; _j++)
                 {
                     var _key = new Coordinate(_j, _j);
-                    var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key, SpatialValue = new object(), ObjectKeyValue = new TestSpatialObjectKey() };
+                    var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key, SpatialValue = new object(), ObjectKeyValue = new TestCacheObject() };
                     _dictionary.Add(_key, _spatialItem);
                 }
 
@@ -407,15 +407,15 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void AddOrUpdateExistingTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(3.11, 3.11);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key, ObjectKeyValue = new TestSpatialObjectKey() };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key, ObjectKeyValue = new TestCacheObject() };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
 
             var _key2 = new Coordinate(3.115, 3.115);
-            var _changedSpatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key2, ObjectKeyValue = new TestSpatialObjectKey() };
+            var _changedSpatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key2, ObjectKeyValue = new TestCacheObject() };
             var _addOrUpdateExisting = _cache.AddOrUpdateExisting(_spatialItem.ObjectKeyValue, _changedSpatialItem);
 
             Assert.AreNotEqual(_addOrGetExisting, _addOrUpdateExisting);
@@ -424,9 +424,9 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void AddOrUpdateExistingWhenNotExistsTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(2.66, 2.66);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key, ObjectKeyValue = new TestSpatialObjectKey() };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key, ObjectKeyValue = new TestCacheObject() };
 
             var _addOrUpdateExisting = _cache.AddOrUpdateExisting(_key, _spatialItem);
             Assert.AreEqual(_spatialItem, _addOrUpdateExisting);
@@ -434,9 +434,9 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void AddOrUpdateExistingWithObjectTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(2.66, 2.66);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key, ObjectKeyValue = new TestSpatialObjectKey() };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key, ObjectKeyValue = new TestCacheObject() };
 
             var _addOrUpdateExisting = _cache.AddOrUpdateExisting(_key, _spatialItem);
             Assert.AreEqual(_spatialItem, _addOrUpdateExisting);
@@ -446,15 +446,15 @@ namespace RabbitCache.Test.Caches
         {
             const string REGION = "Test";
 
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(3.22, 3.22);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key, ObjectKeyValue = new TestSpatialObjectKey() };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key, ObjectKeyValue = new TestCacheObject() };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem, REGION);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
 
             var _key2 = new Coordinate(3.225, 3.225);
-            var _changedSpatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key2, ObjectKeyValue = new TestSpatialObjectKey() };
+            var _changedSpatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key2, ObjectKeyValue = new TestCacheObject() };
             var _addOrUpdateExisting = _cache.AddOrUpdateExisting(_spatialItem.ObjectKeyValue, _changedSpatialItem, null, REGION);
 
             Assert.AreNotEqual(_addOrGetExisting, _addOrUpdateExisting);
@@ -463,16 +463,16 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void AddOrUpdateExistingWhenAbsoluteExpirationTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(3.44, 3.44);
-            var _object = new TestSpatialObjectKey();
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key, ObjectKeyValue = _object, SpatialValue = new object() };
+            var _object = new TestCacheObject();
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key, ObjectKeyValue = _object, SpatialValue = new object() };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
 
             var _key2 = new Coordinate(3.445, 3.445);
-            var _changedSpatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key2, ObjectKeyValue = _object, SpatialValue = new object() };
+            var _changedSpatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key2, ObjectKeyValue = _object, SpatialValue = new object() };
             var _addOrUpdateExisting = _cache.AddOrUpdateExisting(_spatialItem.ObjectKeyValue, _changedSpatialItem, DateTimeOffset.UtcNow.AddMilliseconds(20));
 
             Assert.AreNotEqual(_addOrGetExisting, _addOrUpdateExisting);
@@ -487,15 +487,15 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void UpdateTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(3.11, 3.11);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key, ObjectKeyValue = new TestSpatialObjectKey() };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key, ObjectKeyValue = new TestCacheObject() };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
 
             var _key2 = new Coordinate(3.115, 3.115);
-            var _changedSpatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key2, ObjectKeyValue = new TestSpatialObjectKey() };
+            var _changedSpatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key2, ObjectKeyValue = new TestCacheObject() };
             var _value = _cache.Update(_spatialItem.ObjectKeyValue, _changedSpatialItem);
 
             Assert.AreNotEqual(_addOrGetExisting, _value);
@@ -506,15 +506,15 @@ namespace RabbitCache.Test.Caches
         {
             const string REGION = "Test";
 
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(3.22, 3.22);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key, ObjectKeyValue = new TestSpatialObjectKey() };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key, ObjectKeyValue = new TestCacheObject() };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem, REGION);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
 
             var _key2 = new Coordinate(3.225, 3.225);
-            var _changedSpatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key2, ObjectKeyValue = new TestSpatialObjectKey() };
+            var _changedSpatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key2, ObjectKeyValue = new TestCacheObject() };
             var _value = _cache.Update(_spatialItem.ObjectKeyValue, _changedSpatialItem, REGION);
 
             Assert.AreNotEqual(_addOrGetExisting, _value);
@@ -523,15 +523,15 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void UpdateWhenCacheItemPolicyTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(3.33, 3.33);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key, ObjectKeyValue = new TestSpatialObjectKey() };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key, ObjectKeyValue = new TestCacheObject() };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
 
             var _key2 = new Coordinate(3.335, 3.335);
-            var _changedSpatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key2, ObjectKeyValue = new TestSpatialObjectKey() };
+            var _changedSpatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key2, ObjectKeyValue = new TestCacheObject() };
             var _value = _cache.Update(_spatialItem.ObjectKeyValue, _changedSpatialItem, new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.UtcNow.AddMilliseconds(20) });
 
             Assert.AreNotEqual(_addOrGetExisting, _value);
@@ -545,16 +545,16 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void UpdateWhenAbsoluteExpirationTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(3.44, 3.44);
-            var _object = new TestSpatialObjectKey();
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key, ObjectKeyValue = _object, SpatialValue = new object() };
+            var _object = new TestCacheObject();
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key, ObjectKeyValue = _object, SpatialValue = new object() };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
 
             var _key2 = new Coordinate(3.445, 3.445);
-            var _changedSpatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key2, ObjectKeyValue = _object, SpatialValue = new object() };
+            var _changedSpatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key2, ObjectKeyValue = _object, SpatialValue = new object() };
             var _value = _cache.Update(_spatialItem.ObjectKeyValue, _changedSpatialItem, DateTimeOffset.UtcNow.AddMilliseconds(20));
 
             Assert.AreNotEqual(_addOrGetExisting, _value);
@@ -569,9 +569,9 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void RemoveTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(3.55, 3.55);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -586,9 +586,9 @@ namespace RabbitCache.Test.Caches
         {
             const string REGION = "Test";
 
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key = new Coordinate(3.66, 3.66);
-            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key };
+            var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key };
 
             var _addOrGetExisting = _cache.AddOrGetExisting(_key, _spatialItem, REGION);
             Assert.AreEqual(_spatialItem, _addOrGetExisting);
@@ -605,12 +605,12 @@ namespace RabbitCache.Test.Caches
             const int LOOPS2 = 500;
 
             var _dictionary = new Dictionary<Coordinate, object>();
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
 
             for (var _j = 1; _j <= LOOPS2; _j++)
             {
                 var _key = new Coordinate(_j, _j);
-                var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key, SpatialValue = new object(), ObjectKeyValue = new TestSpatialObjectKey() };
+                var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key, SpatialValue = new object(), ObjectKeyValue = new TestCacheObject() };
                 _cache.AddOrGetExisting(_key, _spatialItem);
                 _dictionary.Add(_key, _spatialItem);
             }
@@ -633,12 +633,12 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void QueryTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
 
-            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(40.708210, -74.006074) };
-            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(41.708210, -73.006074) };
-            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(42.708210, -72.006074) };
-            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(44.708210, -71.006074) };
+            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(40.708210, -74.006074) };
+            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(41.708210, -73.006074) };
+            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(42.708210, -72.006074) };
+            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(44.708210, -71.006074) };
 
             _cache.AddOrGetExisting(_spatialItem1.SpatialKey, _spatialItem1);
             _cache.AddOrGetExisting(_spatialItem2.SpatialKey, _spatialItem2);
@@ -651,12 +651,12 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void QueryAreOrderedbyDistanceTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
 
-            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(0.0, 0.0001), ObjectKeyValue = new TestSpatialObjectKey() };
-            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(0.0, 0.0002), ObjectKeyValue = new TestSpatialObjectKey() };
-            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(0.0, 0.0003), ObjectKeyValue = new TestSpatialObjectKey() };
-            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(0.0, 0.00025), ObjectKeyValue = new TestSpatialObjectKey() };
+            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(0.0, 0.0001), ObjectKeyValue = new TestCacheObject() };
+            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(0.0, 0.0002), ObjectKeyValue = new TestCacheObject() };
+            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(0.0, 0.0003), ObjectKeyValue = new TestCacheObject() };
+            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(0.0, 0.00025), ObjectKeyValue = new TestCacheObject() };
 
             _cache.AddOrGetExisting(_spatialItem1.SpatialKey, _spatialItem1);
             _cache.AddOrGetExisting(_spatialItem2.SpatialKey, _spatialItem2);
@@ -675,13 +675,13 @@ namespace RabbitCache.Test.Caches
         {
             const double WITHIN_DISTANCE_IN_METERS = 500.00;
 
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
 
-            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(55.655603, 12.511976), ObjectKeyValue = new TestSpatialObjectKey() }; // 400 meters
-            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(55.656550, 12.512677), ObjectKeyValue = new TestSpatialObjectKey() }; // 500 meters
-            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(55.656893, 12.513004), ObjectKeyValue = new TestSpatialObjectKey() }; // 550 meters
-            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(55.656231, 12.512544), ObjectKeyValue = new TestSpatialObjectKey() }; // 475 meters
-            var _spatialItem5 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(55.655895, 12.512169), ObjectKeyValue = new TestSpatialObjectKey() }; // 475 meters
+            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(55.655603, 12.511976), ObjectKeyValue = new TestCacheObject() }; // 400 meters
+            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(55.656550, 12.512677), ObjectKeyValue = new TestCacheObject() }; // 500 meters
+            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(55.656893, 12.513004), ObjectKeyValue = new TestCacheObject() }; // 550 meters
+            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(55.656231, 12.512544), ObjectKeyValue = new TestCacheObject() }; // 475 meters
+            var _spatialItem5 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(55.655895, 12.512169), ObjectKeyValue = new TestCacheObject() }; // 475 meters
 
             _cache.AddOrGetExisting(_spatialItem1.SpatialKey, _spatialItem1);
             _cache.AddOrGetExisting(_spatialItem2.SpatialKey, _spatialItem2);
@@ -699,12 +699,12 @@ namespace RabbitCache.Test.Caches
         {
             const string REGION = "Test";
 
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
 
-            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(40.708210, -74.006074) };
-            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(41.708210, -73.006074) };
-            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(42.708210, -72.006074) };
-            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(44.708210, -71.006074) };
+            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(40.708210, -74.006074) };
+            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(41.708210, -73.006074) };
+            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(42.708210, -72.006074) };
+            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(44.708210, -71.006074) };
 
             _cache.AddOrGetExisting(_spatialItem1.SpatialKey, _spatialItem1, REGION);
             _cache.AddOrGetExisting(_spatialItem2.SpatialKey, _spatialItem2, REGION);
@@ -717,12 +717,12 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void QueryWhenEmptyTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
 
-            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(40.708210, -74.006074) };
-            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(41.708210, -73.006074) };
-            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(42.708210, -72.006074) };
-            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(44.708210, -71.006074) };
+            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(40.708210, -74.006074) };
+            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(41.708210, -73.006074) };
+            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(42.708210, -72.006074) };
+            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(44.708210, -71.006074) };
 
             _cache.AddOrGetExisting(_spatialItem1.SpatialKey, _spatialItem1);
             _cache.AddOrGetExisting(_spatialItem2.SpatialKey, _spatialItem2);
@@ -739,12 +739,12 @@ namespace RabbitCache.Test.Caches
             const int LOOPS2 = 500;
 
             var _dictionary = new Dictionary<Coordinate, object>();
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
 
             for (var _j = 1; _j <= LOOPS2; _j++)
             {
                 var _key = new Coordinate(_j, _j);
-                var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key, SpatialValue = new object(), ObjectKeyValue = new TestSpatialObjectKey() };
+                var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key, SpatialValue = new object(), ObjectKeyValue = new TestCacheObject() };
                 _cache.AddOrGetExisting(_key, _spatialItem);
                 _dictionary.Add(_key, _spatialItem);
             }
@@ -770,12 +770,12 @@ namespace RabbitCache.Test.Caches
             const int LOOPS2 = 500;
 
             var _dictionary = new Dictionary<Coordinate, object>();
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
 
             for (var _j = 1; _j <= LOOPS2; _j++)
             {
                 var _key = new Coordinate(_j, _j);
-                var _spatialItem = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key, SpatialValue = new object(), ObjectKeyValue = new TestSpatialObjectKey() };
+                var _spatialItem = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key, SpatialValue = new object(), ObjectKeyValue = new TestCacheObject() };
                 _cache.AddOrGetExisting(_key, _spatialItem);
                 _dictionary.Add(_key, _spatialItem);
             }
@@ -791,12 +791,12 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void IntersectTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
 
-            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(1.0, 3.0) };
-            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(1.5, 1.5) };
-            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(1.5, 2.5) };
-            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(6.0, 2.5) };
+            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(1.0, 3.0) };
+            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(1.5, 1.5) };
+            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(1.5, 2.5) };
+            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(6.0, 2.5) };
 
             _cache.AddOrGetExisting(_spatialItem1.SpatialKey, _spatialItem1);
             _cache.AddOrGetExisting(_spatialItem2.SpatialKey, _spatialItem2);
@@ -813,12 +813,12 @@ namespace RabbitCache.Test.Caches
         {
             const string REGION = "TestRegion1";
 
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
 
-            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(1.0, 3.0) };
-            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(1.5, 1.5) };
-            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(1.5, 2.5) };
-            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(6.0, 2.5) };
+            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(1.0, 3.0) };
+            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(1.5, 1.5) };
+            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(1.5, 2.5) };
+            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(6.0, 2.5) };
 
             _cache.AddOrGetExisting(_spatialItem1.SpatialKey, _spatialItem1, REGION);
             _cache.AddOrGetExisting(_spatialItem2.SpatialKey, _spatialItem2, "TestRegion2");
@@ -833,12 +833,12 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void IntersectWhenEmptyTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
 
-            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(1.5, 3.0) };
-            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(3.0, 1.5) };
-            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(1.707210, 1.006074) };
-            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = new Coordinate(4.708210, 4.006074) };
+            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(1.5, 3.0) };
+            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(3.0, 1.5) };
+            var _spatialItem3 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(1.707210, 1.006074) };
+            var _spatialItem4 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = new Coordinate(4.708210, 4.006074) };
 
             _cache.AddOrGetExisting(_spatialItem1.SpatialKey, _spatialItem1);
             _cache.AddOrGetExisting(_spatialItem2.SpatialKey, _spatialItem2);
@@ -854,12 +854,12 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void GetValuesTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key1 = new Coordinate(7.11, 7.11);
-            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key1 };
+            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key1 };
 
             var _key2 = new Coordinate(7.22, 7.22);
-            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key2 };
+            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key2 };
 
             _cache.AddOrGetExisting(_key1, _spatialItem1);
             _cache.AddOrGetExisting(_key2, _spatialItem2);
@@ -871,12 +871,12 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void GetValuesWhenValueNotParsedTest()
         {
-            var _cache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _cache = new SpatialCache<Coordinate, object, TestCacheObject>();
             var _key1 = new Coordinate(7.11, 7.11);
-            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key1 };
+            var _spatialItem1 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key1 };
 
             var _key2 = new Coordinate(7.22, 7.22);
-            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestSpatialObjectKey> { SpatialKey = _key2 };
+            var _spatialItem2 = new SpatialCacheItem<Coordinate, object, TestCacheObject> { SpatialKey = _key2 };
 
             _cache.AddOrGetExisting(_key1, _spatialItem1);
             _cache.AddOrGetExisting(_key2, _spatialItem2);
@@ -889,7 +889,7 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void CreateCacheEntryChangeMonitorTest()
         {
-            var _spatialCache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _spatialCache = new SpatialCache<Coordinate, object, TestCacheObject>();
             Assert.Throws<NotSupportedException>(() => _spatialCache.CreateCacheEntryChangeMonitor(new List<Coordinate>()));
         }
         [Test]
@@ -897,15 +897,15 @@ namespace RabbitCache.Test.Caches
         {
             const string REGION = "Test";
 
-            var _spatialCache = new SpatialCache<Coordinate, object, TestSpatialObjectKey>();
+            var _spatialCache = new SpatialCache<Coordinate, object, TestCacheObject>();
             Assert.Throws<NotSupportedException>(() => _spatialCache.CreateCacheEntryChangeMonitor(new List<Coordinate>(), REGION));
         }
 
         [Test]
         public void GetEnumeratorTest()
         {
-            var _enumerator = new SpatialCache<Coordinate, object, TestSpatialObjectKey>().GetEnumerator();
-            Assert.AreEqual(_enumerator, new Dictionary<Coordinate, ISpatialCacheItem<Coordinate, object, TestSpatialObjectKey>>.Enumerator());
+            var _enumerator = new SpatialCache<Coordinate, object, TestCacheObject>().GetEnumerator();
+            Assert.AreEqual(_enumerator, new Dictionary<Coordinate, ISpatialCacheItem<Coordinate, object, TestCacheObject>>.Enumerator());
         }
     }
 }
