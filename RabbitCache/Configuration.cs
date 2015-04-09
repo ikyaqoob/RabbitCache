@@ -4,8 +4,10 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using EasyNetQ;
 using log4net;
+using Newtonsoft.Json;
 using RabbitCache.Caches.Serialization;
 using RabbitCache.Helpers;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace RabbitCache
 {
@@ -72,14 +74,13 @@ namespace RabbitCache
             {
                 _windsorContainer
                     .Register(Component.For<IService>().ImplementedBy<Service>().LifeStyle.Transient.IsFallback())
-                    .Register(Component.For<ISerializer>().ImplementedBy<JsonSerializer>().LifeStyle.Transient.IsFallback())
                     .Register(Component.For<IConsumerErrorStrategy>().ImplementedBy<CacheConsumerErrorStrategy>().LifeStyle.Transient.IsFallback());
 
                 if (!_windsorContainer.Kernel.HasComponent(Configuration.ServiceBusName))
                     _windsorContainer.Register(Component.For<IBus>().Named(Configuration.ServiceBusName).UsingFactoryMethod(() =>
                         RabbitHutch.CreateBus(ConfigurationSectionHandler.GetSection().ConnectionStringElement.Value, _x => _x
                             .Register(_y => (SerializeType)Configuration.TypeNameSerializer.Serialize)
-                            .Register(_y => _windsorContainer.Resolve<ISerializer>())
+                            .Register(_y => JsonSerializer.Create(new JsonSerializerSettings { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore }))
                             .Register(_y => _windsorContainer.Resolve<IConsumerErrorStrategy>())))
                     .LifeStyle.Transient.IsFallback());
 

@@ -7,6 +7,7 @@ using Moq;
 using NUnit.Framework;
 using RabbitCache.Extensions;
 using RabbitCache.Helpers;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace RabbitCache.Test
 {
@@ -37,7 +38,6 @@ namespace RabbitCache.Test
 
             Assert.IsTrue(Configuration.WindsorContainer.Kernel.HasComponent(typeof(IBus)));
             Assert.IsTrue(Configuration.WindsorContainer.Kernel.HasComponent(typeof(IService)));
-            Assert.IsTrue(Configuration.WindsorContainer.Kernel.HasComponent(typeof(ISerializer)));
             Assert.IsTrue(Configuration.WindsorContainer.Kernel.HasComponent(typeof(IConsumerErrorStrategy)));
         }
         [Test]
@@ -46,14 +46,6 @@ namespace RabbitCache.Test
             RabbitCache.Configuration.Initialize();
 
             var _resolve = Configuration.WindsorContainer.Resolve<IService>(new { _assembly = this.GetType().Assembly, _serviceName = "Test" });
-            Assert.IsNotNull(_resolve);
-        }
-        [Test]
-        public void InitializeCanResolveISerializerTest()
-        {
-            RabbitCache.Configuration.Initialize();
-
-            var _resolve = Configuration.WindsorContainer.Resolve<ISerializer>();
             Assert.IsNotNull(_resolve);
         }
         [Test]
@@ -87,18 +79,6 @@ namespace RabbitCache.Test
             RabbitCache.Configuration.Initialize(_windsorContainer);
 
             Assert.AreEqual(_service, _windsorContainer.Resolve<IService>());
-        }
-        [Test]
-        public void InitializeWhenCacheEntryJsonSerializerIsOverriddenTest()
-        {
-            var _windsorContainer = new WindsorContainer();
-            var _serializer = new Mock<ISerializer>().Object;
-            _windsorContainer
-                .Register(Component.For<ISerializer>().Instance(_serializer).LifeStyle.Transient.Override());
-
-            RabbitCache.Configuration.Initialize(_windsorContainer);
-
-            Assert.AreEqual(_serializer, _windsorContainer.Resolve<ISerializer>());
         }
         [Test]
         public void InitializeWhenCacheConsumerErrorStrategyIsOverriddenTest()
