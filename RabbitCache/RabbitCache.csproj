@@ -87,8 +87,6 @@
     <Compile Include="Caches\CollectionCache.cs" />
     <Compile Include="Caches\Serialization\CacheConsumerErrorStrategy.cs" />
     <Compile Include="Contracts\CacheEntry.cs" />
-    <Compile Include="Caches\Serialization\CacheEntryContractResolver.cs" />
-    <Compile Include="Caches\Serialization\CacheEntryJsonSerializer.cs" />
     <Compile Include="Caches\Entities\SpatialCacheItem.cs" />
     <Compile Include="Caches\Entities\SpatialCacheItemT.cs" />
     <Compile Include="Caches\Interfaces\ICache.cs" />

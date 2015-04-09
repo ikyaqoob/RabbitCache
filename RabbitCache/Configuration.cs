@@ -72,7 +72,7 @@ namespace RabbitCache
             {
                 _windsorContainer
                     .Register(Component.For<IService>().ImplementedBy<Service>().LifeStyle.Transient.IsFallback())
-                    .Register(Component.For<ISerializer>().ImplementedBy<CacheEntryJsonSerializer>().LifeStyle.Transient.IsFallback())
+                    .Register(Component.For<ISerializer>().ImplementedBy<JsonSerializer>().LifeStyle.Transient.IsFallback())
                     .Register(Component.For<IConsumerErrorStrategy>().ImplementedBy<CacheConsumerErrorStrategy>().LifeStyle.Transient.IsFallback());
 
                 if (!_windsorContainer.Kernel.HasComponent(Configuration.ServiceBusName))

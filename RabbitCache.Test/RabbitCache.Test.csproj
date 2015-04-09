@@ -83,12 +83,6 @@
     <Compile Include="Caches\CollectionCacheTest.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Caches\Serialization\CacheEntryContractResolverTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Caches\Serialization\CacheEntryJsonSerializerTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Caches\Locking\ReaderLockTest.cs">
       <SubType>Code</SubType>
     </Compile>
