@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Caching;
 using GeoAPI.Geometries;
 using RabbitCache.Caches.Entities.Interfaces;
+using Coordinate = RabbitCache.Caches.Entities.Coordinate;
 
 namespace RabbitCache.Caches.Interfaces
 {

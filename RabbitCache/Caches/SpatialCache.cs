@@ -13,6 +13,7 @@ using RabbitCache.Caches.Entities.Interfaces;
 using RabbitCache.Caches.Interfaces;
 using RabbitCache.Caches.Locking;
 using RabbitCache.Extensions;
+using Coordinate = RabbitCache.Caches.Entities.Coordinate;
 
 namespace RabbitCache.Caches
 {
@@ -160,7 +161,7 @@ namespace RabbitCache.Caches
 
             _regionName = _regionName ?? BaseCache.DEFAULT_REGION;
 
-            var _envelope = new Envelope(_key);
+            var _envelope = new Envelope(new GeoAPI.Geometries.Coordinate(_key.Latitude, _key.Longitude));
             var _expirationInMilliSeconds = _absoluteExpiration == null ? int.MaxValue : (_absoluteExpiration - DateTimeOffset.UtcNow).Value.TotalMilliseconds;
             var _objectCache = this._objectCaches[_regionName];
             var _spatialCache = this._spatialCaches[_regionName];
@@ -206,7 +207,8 @@ namespace RabbitCache.Caches
                 var _cacheItem = _objectCache.FirstOrDefault(_x => _x.ObjectKeyValue == _objectKeyValue);
                 if (_cacheItem != null)
                 {
-                    var _envelope = new Envelope(_cacheItem.SpatialKey);
+                    var _coordinate = new GeoAPI.Geometries.Coordinate(_cacheItem.SpatialKey.Latitude, _cacheItem.SpatialKey.Longitude);
+                    var _envelope = new Envelope(_coordinate);
               
                     using (new WriterLock(_readerLock))
                     {
@@ -217,7 +219,8 @@ namespace RabbitCache.Caches
               
                 using (new WriterLock(_readerLock))
                 {
-                    var _newEnvelope = new Envelope(_value.SpatialKey);
+                    var _coordinate = new GeoAPI.Geometries.Coordinate(_value.SpatialKey.Latitude, _value.SpatialKey.Longitude);
+                    var _newEnvelope = new Envelope(_coordinate);
 
                     _objectCache.Add(_value);
                     _spatialCache.Add(_newEnvelope, _value, _expirationInMilliSeconds, () => this.Remove(_value.SpatialKey, _regionName));
@@ -269,8 +272,11 @@ namespace RabbitCache.Caches
                 var _cacheItem = _objectCache.FirstOrDefault(_x => _x.ObjectKeyValue == _objectKeyValue);
                 if (_cacheItem != null)
                 {
-                    var _envelope = new Envelope(_cacheItem.SpatialKey);
-                    var _newEnvelope = new Envelope(_value.SpatialKey);
+                    var _coordinate = new GeoAPI.Geometries.Coordinate(_cacheItem.SpatialKey.Latitude, _cacheItem.SpatialKey.Longitude);
+                    var _envelope = new Envelope(_coordinate);
+
+                    var _newCoordinate = new GeoAPI.Geometries.Coordinate(_value.SpatialKey.Latitude, _value.SpatialKey.Longitude);
+                    var _newEnvelope = new Envelope(_newCoordinate);
 
                     using (new WriterLock(_readerLock))
                     {
@@ -297,7 +303,9 @@ namespace RabbitCache.Caches
             var _objectCache = this._objectCaches[_regionName];
             var _spatialCache = this._spatialCaches[_regionName];
             var _syncLock = this._syncLocks[_regionName];
-            var _envelope = new Envelope(_key);
+
+            var _coordinate = new GeoAPI.Geometries.Coordinate(_key.Latitude, _key.Longitude);
+            var _envelope = new Envelope(_coordinate);
 
             using (var _readerLock = new ReaderLock(_syncLock, Timeout.Infinite, true))
             {
@@ -322,14 +330,15 @@ namespace RabbitCache.Caches
             var _spatialCache = this._spatialCaches[_regionName];
             var _syncLock = this._syncLocks[_regionName];
 
-            var _envelope = new Envelope(_key);
+            var _coordinate = new GeoAPI.Geometries.Coordinate(_key.Latitude, _key.Longitude);
+            var _envelope = new Envelope(_coordinate);
             _envelope.ExpandBy(_distanceInMeters * 0.0000089928);
 
             using (new ReaderLock(_syncLock))
             {
                 return _spatialCache.Query(_envelope)
-                    .Where(_x => MathExtension.HaversineInMeters(_x.SpatialKey, _key) <= _distanceInMeters)
-                    .OrderBy(_x => MathExtension.HaversineInMeters(_x.SpatialKey, _key));
+                    .Where(_x => MathExtension.HaversineInMeters(new GeoAPI.Geometries.Coordinate(_x.SpatialKey.Latitude, _x.SpatialKey.Longitude), _coordinate) <= _distanceInMeters)
+                    .OrderBy(_x => MathExtension.HaversineInMeters(new GeoAPI.Geometries.Coordinate(_x.SpatialKey.Latitude, _x.SpatialKey.Longitude), _coordinate));
             }
         }
         public virtual IEnumerable<ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue>> Intersect(IPolygon _polygon, string _regionName = null)
@@ -343,11 +352,11 @@ namespace RabbitCache.Caches
             var _syncLock = this._syncLocks[_regionName];
 
             var _envelope = _polygon.EnvelopeInternal;
-
+     
             using (new ReaderLock(_syncLock))
             {
                 return _spatialCache.Query(_envelope)
-                    .Where(_x => _polygon.Intersects(new Point(_x.SpatialKey.X, _x.SpatialKey.Y) { SRID = _polygon.SRID }));
+                    .Where(_x => _polygon.Intersects(new Point(_x.SpatialKey.Latitude, _x.SpatialKey.Longitude) { SRID = _polygon.SRID }));
             }
         }
         public virtual IDictionary<TSpatialKey, ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue>> GetValues(IEnumerable<TSpatialKey> _keys, string _regionName = null)
@@ -390,8 +399,10 @@ namespace RabbitCache.Caches
 
         private ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue> Get(Quadtree<ISpatialCacheItem<TSpatialKey, TSpatialValue, TObjectKeyValue>> _spatialCache, TSpatialKey _key)
         {
-            var _envelope = new Envelope(_key);
-            return _spatialCache.Query(_envelope).FirstOrDefault(_x => System.Math.Abs(_x.SpatialKey.Distance(_key) - 0) < double.Epsilon);
+            var _coordinate = new GeoAPI.Geometries.Coordinate(_key.Latitude, _key.Longitude);
+            var _envelope = new Envelope(_coordinate);
+
+            return _spatialCache.Query(_envelope).FirstOrDefault(_x => System.Math.Abs(new GeoAPI.Geometries.Coordinate(_x.SpatialKey.Latitude, _x.SpatialKey.Longitude).Distance(_coordinate) - 0) < double.Epsilon);
         }
     }
 }

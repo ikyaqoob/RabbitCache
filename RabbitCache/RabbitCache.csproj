@@ -77,6 +77,7 @@
     <Compile Include="..\Solution.cs">
       <Link>Properties\Solution.cs</Link>
     </Compile>
+    <Compile Include="Caches\Entities\Coordinate.cs" />
     <Compile Include="Caches\Entities\Interfaces\ISpatialCacheItem.cs" />
     <Compile Include="ICacheable.cs" />
     <Compile Include="ConfigurationSectionHandler.cs" />

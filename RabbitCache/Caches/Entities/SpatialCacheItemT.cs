@@ -1,4 +1,3 @@
-using GeoAPI.Geometries;
 using RabbitCache.Caches.Entities.Interfaces;
 
 namespace RabbitCache.Caches.Entities

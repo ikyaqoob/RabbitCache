@@ -10,6 +10,7 @@ using NUnit.Framework;
 using RabbitCache.Caches;
 using RabbitCache.Caches.Entities;
 using RabbitCache.Caches.Entities.Interfaces;
+using Coordinate = RabbitCache.Caches.Entities.Coordinate;
 
 namespace RabbitCache.Test.Caches
 {
@@ -229,7 +230,6 @@ namespace RabbitCache.Test.Caches
         [Test]
         public void GetStressTest()
         {
-
             const int LOOPS1 = 3;
             const int LOOPS2 = 500;
 
@@ -803,7 +803,7 @@ namespace RabbitCache.Test.Caches
             _cache.AddOrGetExisting(_spatialItem3.SpatialKey, _spatialItem3);
             _cache.AddOrGetExisting(_spatialItem3.SpatialKey, _spatialItem4);
 
-            var _polygon = new Polygon(new LinearRing(new[] { new Coordinate(1, 4), new Coordinate(2, 4), new Coordinate(2, 1), new Coordinate(1, 1), new Coordinate(1, 4) }));
+            var _polygon = new Polygon(new LinearRing(new[] { new GeoAPI.Geometries.Coordinate(1, 4), new GeoAPI.Geometries.Coordinate(2, 4), new GeoAPI.Geometries.Coordinate(2, 1), new GeoAPI.Geometries.Coordinate(1, 1), new GeoAPI.Geometries.Coordinate(1, 4) }));
             var _items = _cache.Intersect(_polygon);
 
             Assert.AreEqual(3, _items.Count());
@@ -825,7 +825,7 @@ namespace RabbitCache.Test.Caches
             _cache.AddOrGetExisting(_spatialItem3.SpatialKey, _spatialItem3, "TestRegion3");
             _cache.AddOrGetExisting(_spatialItem4.SpatialKey, _spatialItem4, "TestRegion4");
 
-            var _polygon = new Polygon(new LinearRing(new[] { new Coordinate(1, 4), new Coordinate(2, 4), new Coordinate(2, 1), new Coordinate(1, 1), new Coordinate(1, 4) }));
+            var _polygon = new Polygon(new LinearRing(new[] { new GeoAPI.Geometries.Coordinate(1, 4), new GeoAPI.Geometries.Coordinate(2, 4), new GeoAPI.Geometries.Coordinate(2, 1), new GeoAPI.Geometries.Coordinate(1, 1), new GeoAPI.Geometries.Coordinate(1, 4) }));
             var _items = _cache.Intersect(_polygon, REGION);
 
             Assert.AreEqual(1, _items.Count());
@@ -845,7 +845,7 @@ namespace RabbitCache.Test.Caches
             _cache.AddOrGetExisting(_spatialItem3.SpatialKey, _spatialItem3);
             _cache.AddOrGetExisting(_spatialItem4.SpatialKey, _spatialItem4);
 
-            var _polygon = new Polygon(new LinearRing(new[] { new Coordinate(10, 40), new Coordinate(20, 40), new Coordinate(2, 1), new Coordinate(10, 10), new Coordinate(10, 40) }));
+            var _polygon = new Polygon(new LinearRing(new[] { new GeoAPI.Geometries.Coordinate(10, 40), new GeoAPI.Geometries.Coordinate(20, 40), new GeoAPI.Geometries.Coordinate(2, 1), new GeoAPI.Geometries.Coordinate(10, 10), new GeoAPI.Geometries.Coordinate(10, 40) }));
             var _items = _cache.Intersect(_polygon);
 
             Assert.AreEqual(0, _items.Count());
