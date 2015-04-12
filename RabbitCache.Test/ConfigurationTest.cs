@@ -7,7 +7,6 @@ using Moq;
 using NUnit.Framework;
 using RabbitCache.Extensions;
 using RabbitCache.Helpers;
-using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace RabbitCache.Test
 {

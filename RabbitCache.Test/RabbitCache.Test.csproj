@@ -83,6 +83,7 @@
     <Compile Include="Caches\CollectionCacheTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Caches\Entities\CoordinateTest.cs" />
     <Compile Include="Caches\Locking\ReaderLockTest.cs">
       <SubType>Code</SubType>
     </Compile>
